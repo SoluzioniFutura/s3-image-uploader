@@ -2,7 +2,8 @@ function ImageService(
 	Restangular,
 	S3Service,
 	$q,
-	ConfigService
+	ConfigService,
+	$http
 ) {
 
 	var entities = Restangular.all('S3');
