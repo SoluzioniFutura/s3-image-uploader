@@ -99,6 +99,6 @@ function s3ImageController(
 
 angular.module('S3Image').component('s3image', {
 	controller: s3ImageController,
-	templateUrl: 'components/S3Image/S3Image.html',
+	templateUrl: 'bower_components/s3-image-uploader/S3Image.html',
 	bindings: { image: '=' }
 });
