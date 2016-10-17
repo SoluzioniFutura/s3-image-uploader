@@ -1,0 +1,53 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#s3-image-modal" ng-if="!$ctrl.image">
+    Scegli immagine
+</button>
+<img ng-src="{{$ctrl.image}}" ng-if="$ctrl.image" class="preview" />
+<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#s3-image-modal" ng-if="$ctrl.image">
+    Cambia immagine
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="s3-image-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title" id="myModalLabel">Seleziona immagine</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="image-container col-sm-4" ngf-select ng-model="$ctrl.uploadImage"
+                         ng-change="$ctrl.startUpload()">
+                        <div class="image add">
+                            <i class="fa fa-plus fa-4x"></i>
+                        </div>
+                    </div>
+                    <div ng-repeat="image in $ctrl.images"
+                         ng-class="{'col-sm-4 image-container': true, 'selected': image.selected === true}" >
+                        <div class="image"
+                             style="background-image:url('{{image.thumbUrl}}')"
+                             ng-if="!image.loading"
+                             ng-click="$ctrl.select(image.key)"
+                             ng-dblclick="$ctrl.selectAndClose(image.key)">
+                        </div>
+                        <div class="image col-sm-4 loading" ng-if="image.loading">
+                            <div class="sk-spinner sk-spinner-wave">
+                                <div class="sk-rect1"></div>
+                                <div class="sk-rect2"></div>
+                                <div class="sk-rect3"></div>
+                                <div class="sk-rect4"></div>
+                                <div class="sk-rect5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.chose()">Scegli</button>
+            </div>
+        </div>
+    </div>
+</div>
