@@ -43,7 +43,12 @@ function ImageService(
 			}
 		})
 			.then(
-				function(obj) { d.resolve(obj.data.key); },
+				function(obj) {
+					var res = obj.data.key;
+					res.url = replaceAssetsUrl(res.url);
+					res.thumbUrl = replaceAssetsUrl(res.thumbUrl);
+					d.resolve(res);
+				},
 				d.reject
 			);
 
@@ -54,6 +59,11 @@ function ImageService(
 	this.getImages = function() {
 		return entities.getList({where: {type: 'image'}});
 	};
+	
+	function replaceAssetsUrl(url) {
+		var assetsUrl = ConfigService.get('assetsUrl');
+		return assetsUrl + '/uploads/' + url.split('/uploads/')[1];
+	}
 
 }
 
