@@ -4,7 +4,7 @@ function s3ImageController(
 ) {
 	var $ctrl = this;
 	var loadingIndex = 0;
-	
+	$ctrl.fixedName = $ctrl.name || 's3-upload-modal';
 
 	$ctrl.previewFile = function() {
 		var reader = new FileReader();
@@ -78,8 +78,8 @@ function s3ImageController(
 		if (selected.length === 0) {
 			ConfigService.get('defaultErrorHandler')(new Error('Scegli almeno un\'immagine per proseguire.'));
 		} else if (selected.length === 1) {
-			$ctrl.image = selected[0].url;
-			$('#s3-image-modal').modal('hide');
+			$ctrl.image = selected[0].key;
+			$('#' + $ctrl.fixedName).modal('hide');
 		}
 	};
 	
@@ -94,11 +94,25 @@ function s3ImageController(
 		},
 		ConfigService.get('defaultErrorHandler')
 	);
-
+	
+	$ctrl.getThumbUrl = function(key) {
+		return ConfigService.get('uploadsUrl') + '/' + key;
+	};
+	
+	$ctrl.getResizedUrl = function(key) {
+		return [
+			ConfigService.get('uploadsUrl'),
+			ConfigService.get('thumbPrefix'),
+			key
+		].join('/');
+	};
 }
 
 angular.module('S3Image').component('s3image', {
 	controller: s3ImageController,
 	templateUrl: 'bower_components/s3-image-uploader/S3Image.html',
-	bindings: { image: '=' }
+	bindings: {
+		image: '=',
+		name: '='
+	}
 });

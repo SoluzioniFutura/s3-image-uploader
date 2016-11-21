@@ -5,9 +5,9 @@ function ImageService(
 	ConfigService,
 	$http
 ) {
-
+	
 	var entities = Restangular.all('S3');
-
+	
 	this.upload = function(file) {
 		var d = $q.defer();
 		
@@ -28,13 +28,13 @@ function ImageService(
 					d.reject
 				);
 		
-
+		
 		return d.promise;
 	};
-
+	
 	function resizeImage(key) {
 		var d = $q.defer();
-
+		
 		$http({
 			method: 'POST',
 			url: ConfigService.get('apiUrl') + '/S3/resize?access_token=' + localStorage.accessToken,
@@ -45,16 +45,20 @@ function ImageService(
 			.then(
 				function(obj) {
 					var res = obj.data.key;
-					res.url = replaceAssetsUrl(res.url);
-					res.thumbUrl = replaceAssetsUrl(res.thumbUrl);
+					res.url = [ConfigService.get('uploadsUrl'), res.key].join('/');
+					res.thumbUrl = [
+						ConfigService.get('uploadsUrl'),
+						ConfigService.get('thumbPrefix'),
+						res.key
+					].join('/');
 					d.resolve(res);
 				},
 				d.reject
 			);
-
+		
 		return d.promise;
 	}
-
+	
 	
 	this.getImages = function() {
 		return entities.getList({where: {type: 'image'}});
@@ -64,7 +68,7 @@ function ImageService(
 		var assetsUrl = ConfigService.get('assetsUrl');
 		return assetsUrl + '/uploads/' + url.split('/uploads/')[1];
 	}
-
+	
 }
 
 angular.module('S3Image', [

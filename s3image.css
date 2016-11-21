@@ -1,0 +1,60 @@
+/* S3 image uploader and modal */
+
+img.preview {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.s3-upload .modal-body {
+    height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.s3-upload section {
+    padding: 5px;
+}
+
+.s3-upload .image-container {
+    padding: 5px;
+    position: relative;
+}
+
+.s3-upload .image {
+    height: 130px;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 3px solid white;
+    background-color: #e7eaec;
+}
+
+.s3-upload .selected .image {
+    border-color: #0b93d5;
+}
+
+.s3-upload .image-container.add {
+    background-color: #e7eaec;
+    text-align: center;
+    height: 130px;
+    margin-top: 5px;
+}
+
+.s3-upload .image.add i, .s3-upload .image.loading .sk-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.s3-upload .sk-spinner div {
+    background-color: #676a6c;
+}
+
+label.required:after {
+    content: '*';
+    color: red;
+    padding-left: 5px;
+}

@@ -1,13 +1,14 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#s3-image-modal" ng-if="!$ctrl.image">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ $ctrl.fixedName }}" ng-if="!$ctrl.image">
     Scegli immagine
 </button>
-<img ng-src="{{$ctrl.image}}" ng-if="$ctrl.image" class="preview" />
-<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#s3-image-modal" ng-if="$ctrl.image">
+<img ng-src="{{ $ctrl.getThumbUrl($ctrl.image) }}" ng-if="$ctrl.image" class="preview" />
+<button type="button" class="btn btn-primary pull-right" data-toggle="modal"
+        data-target="#{{ $ctrl.fixedName }}" ng-if="$ctrl.image">
     Cambia immagine
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="s3-image-modal" tabindex="-1" role="dialog">
+<div class="modal fade s3-upload" id="{{ $ctrl.fixedName }}" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -26,7 +27,7 @@
                     <div ng-repeat="image in $ctrl.images"
                          ng-class="{'col-sm-4 image-container': true, 'selected': image.selected === true}" >
                         <div class="image"
-                             style="background-image:url('{{image.thumbUrl}}')"
+                             style="background-image:url('{{ $ctrl.getThumbUrl(image.key) }}')"
                              ng-if="!image.loading"
                              ng-click="$ctrl.select(image.key)"
                              ng-dblclick="$ctrl.selectAndClose(image.key)">
