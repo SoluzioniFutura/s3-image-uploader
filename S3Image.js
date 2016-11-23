@@ -96,7 +96,7 @@ function s3ImageController(
 	);
 	
 	$ctrl.getThumbUrl = function(key) {
-		return ConfigService.get('uploadsUrl') + '/' + key;
+		return ConfigService.get('uploadsUrl') + '/thumbs/' + key;
 	};
 	
 	$ctrl.getResizedUrl = function(key) {
