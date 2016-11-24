@@ -1,7 +1,7 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{ $ctrl.fixedName }}" ng-if="!$ctrl.image">
     Scegli immagine
 </button>
-<img ng-src="{{ $ctrl.getThumbUrl($ctrl.image) }}" ng-if="$ctrl.image" class="preview" />
+<img ng-src="{{ $ctrl.getUrl($ctrl.image) }}" ng-if="$ctrl.image" class="preview" />
 <button type="button" class="btn btn-primary pull-right" data-toggle="modal"
         data-target="#{{ $ctrl.fixedName }}" ng-if="$ctrl.image">
     Cambia immagine

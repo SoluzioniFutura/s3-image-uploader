@@ -95,11 +95,11 @@ function s3ImageController(
 		ConfigService.get('defaultErrorHandler')
 	);
 	
-	$ctrl.getThumbUrl = function(key) {
-		return ConfigService.get('uploadsUrl') + '/thumbs/' + key;
+	$ctrl.getUrl = function(key) {
+		return ConfigService.get('uploadsUrl') + '/' + key;
 	};
 	
-	$ctrl.getResizedUrl = function(key) {
+	$ctrl.getThumbUrl = function(key) {
 		return [
 			ConfigService.get('uploadsUrl'),
 			ConfigService.get('thumbPrefix'),
