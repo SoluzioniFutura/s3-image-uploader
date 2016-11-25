@@ -7,12 +7,15 @@ function ImageService(
 ) {
 	
 	var entities = Restangular.all('S3');
+	var fallbackMaxFileSize = 15000000; // 15 mb
 	
 	this.upload = function(file) {
 		var d = $q.defer();
 		
 		if (! file.name.match(/\.(jpg|jpeg|png)$/))
 			d.reject(new Error('Formato file non supportato'));
+		else if (file.size > (ConfigService.get('maxFileSize') || fallbackMaxFileSize))
+			d.reject(new Error('File troppo grande'));
 		else
 			S3Service
 				.upload(file)
@@ -61,7 +64,7 @@ function ImageService(
 	
 	
 	this.getImages = function() {
-		return entities.getList({where: {type: 'image'}});
+		return entities.getList({filter: {where: {type: 'image'}}});
 	};
 	
 	function replaceAssetsUrl(url) {
