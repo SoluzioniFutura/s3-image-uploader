@@ -31,6 +31,9 @@
                              ng-if="!image.loading"
                              ng-click="$ctrl.select(image.key)"
                              ng-dblclick="$ctrl.selectAndClose(image.key)">
+                            <button type="button" class="btn btn-danger remove-upload btn-sm pull-right" ng-click="$ctrl.removeImage(image)">
+                                <i class="fa fa-times"></i>
+                            </button>
                         </div>
                         <div class="image col-sm-4 loading" ng-if="image.loading">
                             <div class="sk-spinner sk-spinner-wave">

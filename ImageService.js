@@ -12,7 +12,7 @@ function ImageService(
 	this.upload = function(file) {
 		var d = $q.defer();
 		
-		if (! file.name.match(/\.(jpg|jpeg|png)$/i))
+		if (! file.name.match(/\.(jpg|jpeg|png)$/))
 			d.reject(new Error('Formato file non supportato'));
 		else if (file.size > (ConfigService.get('maxFileSize') || fallbackMaxFileSize))
 			d.reject(new Error('File troppo grande'));
@@ -64,12 +64,16 @@ function ImageService(
 	
 	
 	this.getImages = function() {
-		return entities.getList({filter: {where: {type: 'image'}}});
+		return entities.getList({where: {type: 'image'}});
 	};
 	
-	function replaceAssetsUrl(url) {
-		var assetsUrl = ConfigService.get('assetsUrl');
-		return assetsUrl + '/uploads/' + url.split('/uploads/')[1];
+	/*function replaceAssetsUrl(url) {
+	 var assetsUrl = ConfigService.get('assetsUrl');
+	 return assetsUrl + '/uploads/' + url.split('/uploads/')[1];
+	 }*/
+	
+	this.remove = function(key) {
+		return S3Service.remove(key);
 	}
 	
 }
