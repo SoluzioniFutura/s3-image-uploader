@@ -64,17 +64,12 @@ function ImageService(
 	
 	
 	this.getImages = function() {
-		return entities.getList({where: {type: 'image'}});
+		return entities.getList({filter: { where: { type: 'image' }}});
 	};
-	
-	/*function replaceAssetsUrl(url) {
-	 var assetsUrl = ConfigService.get('assetsUrl');
-	 return assetsUrl + '/uploads/' + url.split('/uploads/')[1];
-	 }*/
 	
 	this.remove = function(key) {
 		return S3Service.remove(key);
-	}
+	};
 	
 }
 
